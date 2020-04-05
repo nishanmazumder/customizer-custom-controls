@@ -1,5 +1,28 @@
 <?php
+// Logo Upload
 
+function hebrew_logo_upload( $wp_customize ) {
+$wp_customize->get_setting( 'logo_control_one' )->transport = 'postMessage';
+	
+$wp_customize->add_section('logo_section', array(
+	"title" => 'Hebrew Logo',
+	"priority" => 28,
+	"description" => __( 'Upload logo to display on the Hebrew page.', 'theme-slug' )
+));
+$wp_customize->add_setting('logo_control_one', array(
+	'default' => '',
+	'type' => 'theme_mod',
+	'capability' => 'edit_theme_options',
+));
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'logo_control_one', array(
+	'label' => __( 'Upload Hebrew Logo', 'theme-slug' ),
+	'section' => 'logo_section',
+	'settings' => 'logo_control_one',
+))
+);
+}
+add_action( 'customize_register', 'hebrew_logo_upload' );
+get_theme_mod('image_control_one');
 /**
  * Enqueue scripts and styles.
  * Our sample Social Icons are using Font Awesome icons so we need to include the FA CSS when viewing our site
